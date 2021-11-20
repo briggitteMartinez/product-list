@@ -1,4 +1,4 @@
-import { Text, TouchableOpacity,StyleSheet, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import * as React from "react";
 import { FAB } from "react-native-paper";
 
