@@ -12,8 +12,12 @@
   "dependencies": {
     "@react-navigation/native": "^6.0.6",
     "@react-navigation/native-stack": "^6.2.5",
+    "@types/i18n-js": "^3.8.2",
     "expo": "~43.0.2",
+    "expo-localization": "~11.0.0",
     "expo-status-bar": "~1.1.0",
+    "i18n-js": "^3.8.0",
+    "localization": "^1.0.2",
     "react": "17.0.1",
     "react-dom": "17.0.1",
     "react-native": "0.64.3",

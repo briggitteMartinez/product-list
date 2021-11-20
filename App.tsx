@@ -4,9 +4,12 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import ProductListScreen from './src/screens/ProductListScreen';
 import NewProductScreen from './src/screens/NewProductScreen';
+import { StackScreens } from './src/helpers/types';
+import { setI18nConfig } from './src/helpers/translation/translationConfig';
 
 export default function App() {
   const Stack = createNativeStackNavigator();
+  setI18nConfig();
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="ProductList">
