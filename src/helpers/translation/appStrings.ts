@@ -1,7 +1,7 @@
 // String structure//
 
 enum NewProductScreen{
-    mainText = "newProductScreen-main-text"
+    titleText = "newProductScreen-title-text"
 
 }
 

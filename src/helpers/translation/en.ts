@@ -6,6 +6,6 @@ export const english = {
     [tokens.screens.productListScreen.text3]:"Price",
     [tokens.screens.productListScreen.text4]:"You do not have any products. Press the green button below to add a new one",
 
-    [tokens.screens.newProductScreen.mainText]:"",
+    [tokens.screens.newProductScreen.titleText]:"Create New Product",
 
 }
