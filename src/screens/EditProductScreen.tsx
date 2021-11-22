@@ -1,10 +1,11 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 
-export const EditProductScreen = () => {
+const EditProductScreen = () => {
     return (
         <View>
-            <Text> newproductscreen</Text>
+            <Text> EditProductscreen</Text>
         </View>
     )
 };
+export default EditProductScreen;

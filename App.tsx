@@ -8,10 +8,13 @@ import NewProductScreen from './src/screens/NewProductScreen';
 import { StackScreens } from './src/helpers/types';
 import { setI18nConfig } from './src/helpers/translation/translationConfig';
 
+
+
 export default function App() {
   const Stack = createNativeStackNavigator<StackScreens>();
   setI18nConfig();
   return (
+    
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen name="ProductListScreen" component={ProductListScreen} />
