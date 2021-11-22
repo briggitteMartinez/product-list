@@ -10,6 +10,11 @@ enum ProductListScreen{
 
 }
 
+enum EditProductListScreen{
+    mainText = "editProductListScreen-main-text"
+
+}
+
 export const tokens = {
     screens:{
         productListScreen : ProductListScreen,
