@@ -59,10 +59,13 @@ const styles = StyleSheet.create({
         flex: 2,
         flexDirection: "row",
         justifyContent: "space-evenly",
+        margin: 5,
     },
     button: {
+        flex: 2,
         borderRadius: 15,
-        
+        margin: 5,
+        height: 50,     
     },
     space:{
         flex: 1,
