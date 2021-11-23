@@ -1,17 +1,19 @@
 import { StyleSheet, View, Text } from "react-native";
 import * as React from "react";
 import { FAB } from "react-native-paper";
-import { translate } from "i18n-js";
 import { tokens } from "../helpers/translation/appStrings";
+import { localize } from "../helpers/translation/translationConfig";
+import { ProductContext } from "../contexts/ProductContext";
 
 
 const ProductListScreen: React.FC = (props: any) => {
+    const items = React.useContext(ProductContext)
     return (
         <View style={styles.container}>
             <View style={styles.text1Container}>
-                <Text>Name</Text>
-                <Text>Type</Text>
-                <Text>Price</Text>
+                <Text>{localize(tokens.screens.productListScreen.name)}</Text>
+                <Text>{localize(tokens.screens.productListScreen.type)}</Text>
+                <Text>{localize(tokens.screens.productListScreen.price)}</Text>
             </View>
             <View style={styles.text2Conatiner}><Text style={styles.text2}>You do not have any products. Press the green button below to add a new one</Text></View>
             <View>

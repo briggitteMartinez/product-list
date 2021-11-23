@@ -6,10 +6,10 @@ enum NewProductScreen{
 }
 
 enum ProductListScreen{
-    text1 = "productListScreen-text1",
-    text2 = "productListScreen-text2",
-    text3 = "productListScreen-text3",
-    text4 = "productListScreen-text4",
+    name = "productListScreen-text1",
+    type = "productListScreen-text2",
+    price = "productListScreen-text3",
+    centerText = "productListScreen-text4",
 
 }
 
