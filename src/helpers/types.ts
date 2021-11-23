@@ -1,6 +1,7 @@
 export type StackScreens = {
     ProductListScreen: undefined,
     NewProductScreen: undefined,
-    EditProductScreen: {text:string} ;
+    EditProductScreen: undefined;
+    //{text:string} 
 
 };

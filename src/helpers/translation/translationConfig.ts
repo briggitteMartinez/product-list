@@ -5,7 +5,7 @@ import i18n from "i18n-js"; //does the translation
 import { english } from "./en";
 import { swedish } from "./sv";
 
-export const translate = (key: string) => i18n.t(key);
+export const localize = (key: string) => i18n.t(key);
 
 const getLocale = () => {
   return Localization.locale.slice(0, 2); //to overcome the difference between ios and android returned locale.
