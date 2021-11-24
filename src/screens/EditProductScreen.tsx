@@ -4,18 +4,21 @@ import { TextInput, Button } from '@react-native-material/core';
 import { MaterialCommunityIcons as Icon,} from "@expo/vector-icons";
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { StackScreens } from '../helpers/types';
+import { ProductContext } from "../contexts/ProductContext";
 
 
 const EditProductScreen: React.FC<NativeStackScreenProps<StackScreens, 'EditProductScreen'>> = (props) => {
     const [disabled, setDisabled] = useState(true);
-    const [name, setName] = useState("");
     const [price, setPrice] = useState("");
     const [type, setType] = useState("");
+    const context = React.useContext(ProductContext);
+
+    
 
     useEffect(() => {
-        setDisabled(name.length === 0);
+        setDisabled(context?.name.length === 0);
         
-    },[name]);
+    },[context?.name]);
 
 
     return (
@@ -24,7 +27,7 @@ const EditProductScreen: React.FC<NativeStackScreenProps<StackScreens, 'EditProd
                 <Text style={styles.titleText}> Edit Product</Text>
             </View>
             <View style={styles.inputContainer}>
-                <TextInput defaultValue={name}  onChangeText={setName} style={styles.inputTextContainer} label="Name" />
+                <TextInput defaultValue={context?.name}  onChangeText={context?.setName} style={styles.inputTextContainer} label="Name" />
                 <TextInput defaultValue={price} onChangeText={setPrice}style={styles.inputTextContainer} label="Price" />
                 <TextInput defaultValue={type} onChangeText={setType}style={styles.inputTextContainer} label="Product Type" />
             </View>
