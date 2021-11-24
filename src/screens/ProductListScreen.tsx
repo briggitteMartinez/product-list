@@ -1,21 +1,50 @@
-import { StyleSheet, View, Text } from "react-native";
+import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
 import * as React from "react";
+import { useState } from "react";
 import { FAB } from "react-native-paper";
 import { tokens } from "../helpers/translation/appStrings";
 import { localize } from "../helpers/translation/translationConfig";
 import { ProductContext } from "../contexts/ProductContext";
+import { ProductView } from "../components/ProductView";
 
 
 const ProductListScreen: React.FC = (props: any) => {
-    const items = React.useContext(ProductContext)
+    const context = React.useContext(ProductContext);
+    //const [show, setshow] = useState(false)
+
+    const onPressButton = () => {
+        alert('deleted!')
+    }
+
+    const deleteProduct = (index: any) => {
+        let productsCopy = [...context!.products];
+        productsCopy.splice(index, 1);
+        context?.setProducts(productsCopy);
+        onPressButton()
+    }
+
+
     return (
         <View style={styles.container}>
-            <View style={styles.text1Container}>
-                <Text>{localize(tokens.screens.productListScreen.name)}</Text>
-                <Text>{localize(tokens.screens.productListScreen.type)}</Text>
-                <Text>{localize(tokens.screens.productListScreen.price)}</Text>
+            <View style={styles.headerTextContainer}>
+                <Text style={styles.headerText}>{localize(tokens.screens.productListScreen.name)}</Text>
+                <Text style={styles.headerText}>{localize(tokens.screens.productListScreen.type)}</Text>
+                <Text style={styles.headerText}>{localize(tokens.screens.productListScreen.price)}</Text>
             </View>
-            <View style={styles.text2Conatiner}><Text style={styles.text2}>You do not have any products. Press the green button below to add a new one</Text></View>
+
+            {
+                context?.showProduct ?
+                    context?.products.map((item, index) => {
+                        return (
+                            <TouchableOpacity key={index} onLongPress={() => deleteProduct(index)} onPress={() => { props.navigation.navigate('EditProductScreen') }}>
+                                <ProductView name={item.name} type={item.type} price={item.price} />
+                            </TouchableOpacity>
+                            
+                        )
+                    }) : (<View style={styles.centerTextContainer}><Text style={styles.centerText}>You do not have any products. Press the green button below to add a new one</Text></View>)
+            }
+            <View style={styles.centerTextContainer}></View>
+
             <View>
                 <FAB
                     style={styles.fab}
@@ -35,20 +64,23 @@ const styles = StyleSheet.create({
     dividerContainer: {
         flex: 1,
     },
-    text1Container : {
+    headerTextContainer: {
         marginTop: 10,
         textAlign: "center",
         flexDirection: "row",
         justifyContent: "space-between",
-        padding:10,
+        padding: 10,
         borderBottomWidth: 1,
     },
-    text2Conatiner: {
+    headerText: {
+        fontWeight: 'bold',
+    },
+    centerTextContainer: {
         flex: 1,
         justifyContent: "center",
         textAlign: "center",
     },
-    text2:{
+    centerText: {
         textAlign: "center",
         padding: 25,
         fontSize: 25,

@@ -2,21 +2,22 @@ import React, { useState, } from "react";
 
 interface IProductContext {
     showProduct: boolean;
-    addProduct: (
-        name: String,
-        price: String,
-        type: String,
-    ) => void;
-    editProduct: (
-        name: String,
-        price: String,
-        type: String,
-    ) => void;
-    allProducts: (
-        name: String,
-        price: String,
-        type: String,
-    ) => void;
+    setShowProduct: (isTrue: boolean) => void
+    picked: boolean;
+    name: string;
+    setName :(text :string) => void
+    price: string;
+    setPrice :(text :string) => void
+    products: { name: string; price: string; type: string;}[]
+    setProducts: React.Dispatch<React.SetStateAction<{
+        name: string;
+        price: string;
+        type: string;
+    }[]>>
+    type: string;
+    setType: (type: string) => void;
+   
+   
 }
 
 export const ProductContext = React.createContext<IProductContext | undefined>(undefined);
@@ -24,12 +25,16 @@ export const ProductContext = React.createContext<IProductContext | undefined>(u
 
 export const ProductContextProvider: React.FC = (props) => {
     const [showProduct, setShowProduct] = useState(false);
+    const [picked, setPicked] = useState(false);
+    const [name, setName] = useState("");
+    const [price, setPrice] = useState("");
+    const [products, setProducts] = useState([{name:"", price:"", type:""}],);
+    const [type, setType] = useState("");
+    
+    
 
-    const addProduct = (name: String, price: String, type: String,) => { };
-    const editProduct = (name: String, price: String, type: String,) => { };
-    const allProducts = (name: String, price: String, type: String,) => { setShowProduct(true) };
 
     return (
-        <ProductContext.Provider value={{ showProduct, addProduct, editProduct, allProducts }}>{props.children}</ProductContext.Provider>
+        <ProductContext.Provider value={{ showProduct,setShowProduct, picked, name, setName,price, setPrice, products,setProducts,type ,setType}}>{props.children}</ProductContext.Provider>
     );
-};
+}

@@ -1,22 +1,35 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, } from 'react-native';
+import { View, Text, StyleSheet, Pressable, TouchableOpacity, } from 'react-native';
 import { TextInput, Button } from '@react-native-material/core';
 import { MaterialCommunityIcons as Icon } from "@expo/vector-icons";
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { StackScreens } from '../helpers/types';
+import { ProductContext } from "../contexts/ProductContext";
+import { PickerView } from "../components/Picker"
 
 
 const NewProductScreen: React.FC<NativeStackScreenProps<StackScreens, 'NewProductScreen'>> = (props) => {
     const [disabled, setDisabled] = useState(true);
-    const [name, setName] = useState("");
-    const [price, setPrice] = useState("");
-    const [type, setType] = useState("");
+
+
+    const context = React.useContext(ProductContext);
+
+
+    const handleAddProducts = () => {
+        context?.setProducts([...context.products, { name: context!.name, price: context!.price, type: context.type, }]);
+        console.log(context?.name);
+        context?.setName("");
+        context?.setPrice("");
+        context?.setType("");
+        context?.setShowProduct(true)
+        { props.navigation.navigate('ProductListScreen') }
+    }
 
     useEffect(() => {
-        setDisabled(name.length === 0);
+        setDisabled(context?.name.length === 0);
         console.log("useEffect")
-        
-    },[name]);
+
+    }, [context?.name]);
 
 
     return (
@@ -25,18 +38,19 @@ const NewProductScreen: React.FC<NativeStackScreenProps<StackScreens, 'NewProduc
                 <Text style={styles.titleText}> Create New Product</Text>
             </View>
             <View style={styles.inputContainer}>
-                <TextInput defaultValue={name}  onChangeText={setName} style={styles.inputTextContainer} label="Name" />
-                <TextInput defaultValue={price} onChangeText={setPrice}style={styles.inputTextContainer} label="Price" />
-                <TextInput defaultValue={type} onChangeText={setType}style={styles.inputTextContainer} label="Product Type" />
+                <TextInput defaultValue={context?.name} onChangeText={(text) => context?.setName(text)} style={styles.inputTextContainer} label="Name" />
+                <TextInput defaultValue={context?.price} onChangeText={context?.setPrice} style={styles.inputTextContainer} label="Price" />
+                <TextInput defaultValue={context?.type} onChangeText={context?.setType} style={styles.inputTextContainer} label="Product Type" />
             </View>
             <View style={styles.buttonContainer}>
-                <Button disabled={disabled} color={"green"} variant={disabled ? "outlined" : "contained"} style={styles.button} title="Save" trailing={props => <Icon name="download" {...props} />} onPress={() => { props.navigation.navigate('ProductListScreen') }} />
+                <Button disabled={disabled} color={"green"} variant={disabled ? "outlined" : "contained"} style={styles.button} title="Save" trailing={props => <Icon name="download" {...props} />} onPress={() => handleAddProducts()} />
                 <Button color={"green"} style={styles.button} variant="contained" title="Cancel" trailing={props => <Icon name="cancel" {...props} />} onPress={() => { props.navigation.navigate('ProductListScreen') }} />
-                <Button color={"green"} style={styles.button} variant="contained" title="Edit" trailing={props => <Icon name="cancel" {...props} />} onPress={() => { props.navigation.navigate('EditProductScreen') }} />           
+                <Button color={"green"} style={styles.button} variant="contained" title="Edit" trailing={props => <Icon name="cancel" {...props} />} onPress={() => { props.navigation.navigate('EditProductScreen') }} />
             </View>
             <View style={styles.inputContainer}>
 
             </View>
+
         </View>
     )
 };
@@ -45,7 +59,7 @@ export default NewProductScreen;
 const styles = StyleSheet.create({
     container: {
         flex: 3,
-        backgroundColor: '#fff',
+        backgroundColor: '#D2E0D3',
         justifyContent: 'space-between',
     },
     titleContainer: {
@@ -83,7 +97,7 @@ const styles = StyleSheet.create({
         margin: 5,
         height: 50,
         color: "green",
-    
+
     },
     space: {
         flex: 1,
