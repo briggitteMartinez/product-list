@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, Pressable, TouchableOpacity, } from 'react-native';
+import { View, Text, StyleSheet, Pressable, TouchableOpacity,Modal } from 'react-native';
 import { TextInput, Button } from '@react-native-material/core';
 import { MaterialCommunityIcons as Icon } from "@expo/vector-icons";
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
@@ -10,19 +10,25 @@ import { PickerView } from "../components/Picker"
 
 const NewProductScreen: React.FC<NativeStackScreenProps<StackScreens, 'NewProductScreen'>> = (props) => {
     const [disabled, setDisabled] = useState(true);
+    const [productType, setproductType] = useState('Peripheral')
+
 
 
     const context = React.useContext(ProductContext);
 
 
     const handleAddProducts = () => {
-        context?.setProducts([...context.products, { name: context!.name, price: context!.price, type: context.type, }]);
+        context?.setProducts([...context.products,  { name: context!.name, price: context!.price, type: context.type, }]);
         console.log(context?.name);
         context?.setName("");
         context?.setPrice("");
         context?.setType("");
         context?.setShowProduct(true)
         { props.navigation.navigate('ProductListScreen') }
+    }
+    const handleType = () => {
+        setproductType(context!.type);
+        context?.setShowProduct(true)
     }
 
     useEffect(() => {
@@ -40,18 +46,23 @@ const NewProductScreen: React.FC<NativeStackScreenProps<StackScreens, 'NewProduc
             <View style={styles.inputContainer}>
                 <TextInput defaultValue={context?.name} onChangeText={(text) => context?.setName(text)} style={styles.inputTextContainer} label="Name" />
                 <TextInput defaultValue={context?.price} onChangeText={context?.setPrice} style={styles.inputTextContainer} label="Price" />
-                <TextInput defaultValue={context?.type} onChangeText={context?.setType} style={styles.inputTextContainer} label="Product Type" />
+                {context?.showProduct ? <PickerView/> :
+                <Button variant="outlined" color={"white"}style={styles.inputTextContainer} title={productType} onPress={() => handleType()}>
+                
+                </Button>  }
+
             </View>
             <View style={styles.buttonContainer}>
                 <Button disabled={disabled} color={"green"} variant={disabled ? "outlined" : "contained"} style={styles.button} title="Save" trailing={props => <Icon name="download" {...props} />} onPress={() => handleAddProducts()} />
                 <Button color={"green"} style={styles.button} variant="contained" title="Cancel" trailing={props => <Icon name="cancel" {...props} />} onPress={() => { props.navigation.navigate('ProductListScreen') }} />
-                <Button color={"green"} style={styles.button} variant="contained" title="Edit" trailing={props => <Icon name="cancel" {...props} />} onPress={() => { props.navigation.navigate('EditProductScreen') }} />
             </View>
             <View style={styles.inputContainer}>
+                
 
             </View>
 
         </View>
+        
     )
 };
 export default NewProductScreen;
@@ -83,6 +94,8 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderRadius: 10,
         backgroundColor: "green",
+        justifyContent: "space-between",
+        margin: 20,
 
     },
     buttonContainer: {

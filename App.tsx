@@ -28,7 +28,16 @@ export const MainNavigator = () => {
 
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="ProductListScreen" component={ProductListScreen} />
+        <Stack.Screen name="ProductListScreen" component={ProductListScreen} options={{
+          title: 'Items',
+          headerStyle: {
+            backgroundColor: 'green',
+          },
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+        }}/>
         <Stack.Screen name="NewProductScreen" component={NewProductScreen} options={{ headerShown: false }} />
         <Stack.Screen name="EditProductScreen" component={EditProductScreen} options={{ headerShown: false }} />
       </Stack.Navigator>

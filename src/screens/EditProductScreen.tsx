@@ -7,13 +7,18 @@ import { StackScreens } from '../helpers/types';
 import { ProductContext } from "../contexts/ProductContext";
 
 
-const EditProductScreen: React.FC<NativeStackScreenProps<StackScreens, 'EditProductScreen'>> = (props) => {
+const EditProductScreen: React.FC<NativeStackScreenProps<StackScreens, 'EditProductScreen' >> = (props:any) => {
     const [disabled, setDisabled] = useState(true);
     const [price, setPrice] = useState("");
     const [type, setType] = useState("");
     const context = React.useContext(ProductContext);
-
     
+    
+
+    const editProduct = () => {
+        let productsCopy = [...context!.products]   
+        context?.setProducts(productsCopy);
+    }
 
     useEffect(() => {
         setDisabled(context?.name.length === 0);
