@@ -1,6 +1,5 @@
 import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
 import * as React from "react";
-import { useState } from "react";
 import { FAB } from "react-native-paper";
 import { tokens } from "../helpers/translation/appStrings";
 import { localize } from "../helpers/translation/translationConfig";
@@ -10,7 +9,8 @@ import { ProductView } from "../components/ProductView";
 
 const ProductListScreen: React.FC = (props: any) => {
     const context = React.useContext(ProductContext);
-    //const [show, setshow] = useState(false)
+
+    
 
     const onPressButton = () => {
         alert('deleted!')
@@ -21,6 +21,10 @@ const ProductListScreen: React.FC = (props: any) => {
         productsCopy.splice(index, 1);
         context?.setProducts(productsCopy);
         onPressButton()
+    }
+
+    const handleEdit = (item:any, index:any) => {
+        props.navigation.navigate('EditProductScreen' ,{ item: item, index: index})
     }
 
 
@@ -36,12 +40,12 @@ const ProductListScreen: React.FC = (props: any) => {
                 context?.showProduct ?
                     context?.products.map((item, index) => {
                         return (
-                            <TouchableOpacity key={index} onLongPress={() => deleteProduct(index)} onPress={() => { props.navigation.navigate('EditProductScreen') }}>
+                            <TouchableOpacity key={index} onLongPress={() => deleteProduct(index)} onPress={() =>  handleEdit(item, index) }>
                                 <ProductView name={item.name} type={item.type} price={item.price} />
                             </TouchableOpacity>
                             
                         )
-                    }) : (<View style={styles.centerTextContainer}><Text style={styles.centerText}>You do not have any products. Press the green button below to add a new one</Text></View>)
+                    }) : (<View style={styles.centerTextContainer}><Text style={styles.centerText}>{localize(tokens.screens.productListScreen.centerText)}</Text></View>)
             }
             <View style={styles.centerTextContainer}></View>
 

@@ -9,13 +9,11 @@ interface IProductContext {
     price: string;
     setPrice :(text :string) => void
     products: { name: string; price: string; type: string;}[]
-    setProducts: React.Dispatch<React.SetStateAction<{
-        name: string;
-        price: string;
-        type: string;
-    }[]>>
+    setProducts: (products: { name: string; price: string; type: string;}[]) => void
     type: string;
     setType: (type: string) => void;
+    index: number;
+    setIndex: (type: number) => void;
    
    
 }
@@ -28,13 +26,15 @@ export const ProductContextProvider: React.FC = (props) => {
     const [picked, setPicked] = useState(false);
     const [name, setName] = useState("");
     const [price, setPrice] = useState("");
-    const [products, setProducts] = useState([{name:"", price:"", type:""}],);
+    const [products, setProducts] = useState<{ name: string; price: string; type: string;}[]>([]);
     const [type, setType] = useState("");
+    const [index, setIndex] = useState(0);
+    
     
     
 
 
     return (
-        <ProductContext.Provider value={{ showProduct,setShowProduct, picked, name, setName,price, setPrice, products,setProducts,type ,setType}}>{props.children}</ProductContext.Provider>
+        <ProductContext.Provider value={{ showProduct,setShowProduct, picked, name, setName,price, setPrice, products,setProducts,type ,setType, index, setIndex}}>{props.children}</ProductContext.Provider>
     );
 }
